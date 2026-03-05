@@ -195,6 +195,39 @@ opacity:0;
 }
 
 
+.rose-petal{
+position:fixed;
+top:-60px;
+z-index:11;
+pointer-events:none;
+opacity:0;
+animation:petalFall linear forwards;
+}
+
+.rose-petal svg{
+width:100%;
+height:100%;
+}
+
+@keyframes petalFall{
+0%{
+transform:translateX(0) rotate(0deg) scale(0.8);
+opacity:0;
+}
+10%{
+opacity:1;
+}
+50%{
+opacity:0.9;
+}
+100%{
+transform:translateX(var(--drift)) rotate(var(--spin)) scale(0.5);
+opacity:0;
+top:110vh;
+}
+}
+
+
 </style></head><body><div class="container" id="question"><div class="bear">🐻</div><h1>Will You Be My Valentine, Renu 💗?</h1><p class="subtitle">I know late ho gya par kabse iss din ka wait kr raha tha 😁💕</p><div class="buttons">
 <button id="yesBtn">Yess ❤️</button>
 <button id="noBtn">No</button>
@@ -305,7 +338,62 @@ document.body.appendChild(conf);
 }
 
 
+createRosePetals();
+
+
 });
+
+
+function createRosePetals(){
+const petalColors=[
+['#e8456b','#c1344f'],
+['#ff6b8a','#d44a68'],
+['#f7597c','#cc3d5e'],
+['#ff8fa3','#e06b82'],
+['#d63860','#b02a4c']
+];
+
+function spawnPetal(){
+const petal=document.createElement("div");
+petal.classList.add("rose-petal");
+
+const size=Math.random()*25+18;
+petal.style.width=size+"px";
+petal.style.height=size+"px";
+petal.style.left=Math.random()*100+"vw";
+
+const drift=(Math.random()-0.5)*200;
+const spin=Math.random()*720-360;
+petal.style.setProperty('--drift',drift+'px');
+petal.style.setProperty('--spin',spin+'deg');
+
+petal.style.animationDuration=(Math.random()*4+3)+"s";
+petal.style.animationDelay=(Math.random()*0.5)+"s";
+
+const color=petalColors[Math.floor(Math.random()*petalColors.length)];
+petal.innerHTML=`<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+<ellipse cx="30" cy="25" rx="18" ry="24" fill="${color[0]}" transform="rotate(-15 30 25)" opacity="0.9"/>
+<ellipse cx="30" cy="28" rx="14" ry="20" fill="${color[1]}" transform="rotate(10 30 28)" opacity="0.7"/>
+</svg>`;
+
+document.body.appendChild(petal);
+
+petal.addEventListener('animationend',()=>petal.remove());
+}
+
+// Initial burst of petals
+for(let i=0;i<40;i++){
+setTimeout(()=>spawnPetal(),i*80);
+}
+
+// Continuous gentle petal rain
+let petalInterval=setInterval(()=>{
+spawnPetal();
+},300);
+
+// Stop after 15 seconds
+setTimeout(()=>clearInterval(petalInterval),15000);
+}
 
 
 function createHearts(){
