@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html><html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Renu 💗</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet"><style>
@@ -17,10 +17,29 @@ height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-background:linear-gradient(135deg,#ffd1e6,#ff6f91,#ff3f6c);
+background:linear-gradient(135deg,#fff0f3 0%,#ffccd5 25%,#ffb3c1 50%,#ff8fa3 75%,#ffc2d1 100%);
 overflow:hidden;
 text-align:center;
-color:#fff;
+color:#4a1942;
+position:relative;
+}
+
+body::before{
+content:'';
+position:fixed;
+top:0;left:0;width:100%;height:100%;
+background:
+radial-gradient(ellipse at 20% 50%, rgba(255,182,193,0.4) 0%, transparent 60%),
+radial-gradient(ellipse at 80% 20%, rgba(255,209,220,0.35) 0%, transparent 50%),
+radial-gradient(ellipse at 50% 80%, rgba(255,228,225,0.3) 0%, transparent 50%);
+pointer-events:none;
+z-index:0;
+animation:glowShift 8s ease-in-out infinite alternate;
+}
+
+@keyframes glowShift{
+0%{opacity:0.6;filter:blur(0px);}
+100%{opacity:1;filter:blur(2px);}
 }
 
 
@@ -29,6 +48,11 @@ max-width:700px;
 padding:20px;
 position:relative;
 z-index:5;
+background:rgba(255,255,255,0.55);
+border-radius:20px;
+backdrop-filter:blur(8px);
+-webkit-backdrop-filter:blur(8px);
+box-shadow:0 4px 30px rgba(255,143,163,0.25);
 }
 
 
@@ -85,27 +109,28 @@ font-size:18px;
 #yesBtn{
 padding:16px 42px;
 border-radius:50px;
-background:linear-gradient(45deg,#ff2e63,#ff6a88);
+background:linear-gradient(45deg,#ff6b8a,#ff8fa3);
 color:white;
 font-weight:600;
-box-shadow:0 0 15px rgba(255,0,80,0.6);
+box-shadow:0 4px 15px rgba(255,107,138,0.4);
 transition:0.3s;
 }
 
 
 #yesBtn:hover{
 transform:scale(1.1);
-box-shadow:0 0 30px rgba(255,0,80,0.9);
+box-shadow:0 6px 25px rgba(255,107,138,0.6);
 }
 
 
 #noBtn{
 padding:12px 25px;
 border-radius:30px;
-background:white;
-color:#ff2e63;
-border:2px solid #ff2e63;
+background:rgba(255,255,255,0.6);
+color:#c44569;
+border:2px solid rgba(255,143,163,0.5);
 position:relative;
+backdrop-filter:blur(4px);
 }
 
 
@@ -137,10 +162,11 @@ display:none;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-background:linear-gradient(135deg,#ff6f91,#ff2e63);
+background:linear-gradient(135deg,#fff0f3 0%,#ffc2d1 30%,#ffb3c1 60%,#ff8fa3 100%);
 z-index:10;
 text-align:center;
 padding:30px;
+color:#4a1942;
 }
 
 
@@ -195,12 +221,45 @@ opacity:0;
 }
 
 
+.rose-petal{
+position:fixed;
+top:-60px;
+z-index:11;
+pointer-events:none;
+opacity:0;
+animation:petalFall linear forwards;
+}
+
+.rose-petal svg{
+width:100%;
+height:100%;
+}
+
+@keyframes petalFall{
+0%{
+transform:translateX(0) rotate(0deg) scale(0.8);
+opacity:0;
+}
+10%{
+opacity:1;
+}
+50%{
+opacity:0.9;
+}
+100%{
+transform:translateX(var(--drift)) rotate(var(--spin)) scale(0.5);
+opacity:0;
+top:110vh;
+}
+}
+
+
 </style></head><body><div class="container" id="question"><div class="bear">🐻</div><h1>Will You Be My Valentine, Renu 💗?</h1><p class="subtitle">I know late ho gya par kabse iss din ka wait kr raha tha 😁💕</p><div class="buttons">
 <button id="yesBtn">Yess ❤️</button>
 <button id="noBtn">No</button>
 </div><p class="closing">
 Every love story is beautiful and unique, but ours is  special. We fight, we cry, we love, we laugh, and we stay together because we love eachother and I'll keep on loving you even on days you would hate me or yourself! My love for you is and will be greater than my ego, <strong>I love you Renu soooooooooooo muchhh ☺️💗</strong>
-</p></div><div id="celebration"><h1>Yayyyy!!</h1><div class="spin">💖</div><div class="message">
+</p></div><div id="celebration"><h1>Yayyyy!!</h1><div class="spin">😆</div><div class="message">
 Kal tujhse finally milne ka thought hi mujhe itna happy kar raha hai 😊💕 <br>
 It’s been weeks, and I’ve really missed being around you. Tere saath time spend karna is always my favorite thing.<br>I’m really looking forward kal k liye ☺️
 Tujhe finally dekhna, tere soft soft gaalon ke saath khelna, aur tere saath jo bhi limited time hoga woh properly spend karna.
@@ -261,6 +320,7 @@ y<yesRect.bottom+80
 noBtn.style.position="fixed";
 noBtn.style.left=x+"px";
 noBtn.style.top=y+"px";
+noBtn.style.zIndex="100";
 
 
 noBtn.innerText=messages[msgIndex];
@@ -305,43 +365,49 @@ document.body.appendChild(conf);
 }
 
 
+createRosePetals();
+
+
 });
 
 
-function createHearts(){
+function createRosePetals(){
+const petalColors=[
+['#e8456b','#c1344f'],
+['#ff6b8a','#d44a68'],
+['#f7597c','#cc3d5e'],
+['#ff8fa3','#e06b82'],
+['#d63860','#b02a4c']
+];
 
+function spawnPetal(){
+const petal=document.createElement("div");
+petal.classList.add("rose-petal");
 
-for(let i=0;i<15;i++){
+const size=Math.random()*25+18;
+petal.style.width=size+"px";
+petal.style.height=size+"px";
+petal.style.left=Math.random()*100+"vw";
 
+const drift=(Math.random()-0.5)*200;
+const spin=Math.random()*720-360;
+petal.style.setProperty('--drift',drift+'px');
+petal.style.setProperty('--spin',spin+'deg');
 
-let heart=document.createElement("div");
-heart.classList.add("heart");
+petal.style.animationDuration=(Math.random()*4+3)+"s";
+petal.style.animationDelay=(Math.random()*0.5)+"s";
 
+const color=petalColors[Math.floor(Math.random()*petalColors.length)];
+petal.innerHTML=`<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+<ellipse cx="30" cy="25" rx="18" ry="24" fill="${color[0]}" transform="rotate(-15 30 25)" opacity="0.9"/>
+<ellipse cx="30" cy="28" rx="14" ry="20" fill="${color[1]}" transform="rotate(10 30 28)" opacity="0.7"/>
+</svg>`;
 
-heart.innerText="❤️";
+document.body.appendChild(petal);
 
-
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(Math.random()*20+20)+"px";
-heart.style.animationDuration=(Math.random()*6+6)+"s";
-heart.style.animationDelay=Math.random()*5+"s";
-
-
-document.body.appendChild(heart);
-
-
+petal.addEventListener('animationend',()=>petal.remove());
 }
 
-
-}
-
-
-createHearts();
-
-
-</script></body>
-
-</html>
-
-
-
+// Initial burst of petals
+for(let i=0;i<40;i++){
+setTimeout(()=>spawnPetal(),i*80);
