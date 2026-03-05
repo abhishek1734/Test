@@ -167,6 +167,7 @@ z-index:10;
 text-align:center;
 padding:30px;
 color:#4a1942;
+overflow-y:auto;
 }
 
 
@@ -254,6 +255,214 @@ top:110vh;
 }
 
 
+/* Continue button */
+.continue-btn{
+display:inline-block;
+margin-top:25px;
+padding:16px 42px;
+border-radius:50px;
+background:linear-gradient(45deg,#ff6b8a,#ff8fa3);
+color:white;
+font-weight:600;
+font-size:18px;
+box-shadow:0 4px 15px rgba(255,107,138,0.4);
+transition:0.3s;
+cursor:pointer;
+border:none;
+font-family:'Poppins',sans-serif;
+animation:pulse 2s infinite;
+}
+.continue-btn:hover{
+transform:scale(1.1);
+box-shadow:0 6px 25px rgba(255,107,138,0.6);
+}
+
+/* Page 3 - Scratch Cards */
+#scratchPage{
+position:fixed;
+top:0;left:0;width:100%;height:100%;
+display:none;
+flex-direction:column;
+align-items:center;
+justify-content:flex-start;
+background:linear-gradient(135deg,#fff0f3 0%,#ffc2d1 30%,#ffb3c1 60%,#ff8fa3 100%);
+z-index:20;
+text-align:center;
+padding:30px 20px;
+color:#4a1942;
+overflow-y:auto;
+}
+
+#scratchPage h1{
+font-family:'Dancing Script',cursive;
+font-size:2.8rem;
+margin-bottom:10px;
+animation:pulse 2s infinite;
+}
+
+.scratch-subtitle{
+font-size:1.1rem;
+opacity:0.9;
+margin-bottom:25px;
+font-style:italic;
+}
+
+.scratch-container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:25px;
+margin-bottom:30px;
+}
+
+.scratch-card{
+position:relative;
+width:250px;
+height:300px;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 8px 30px rgba(255,107,138,0.35);
+cursor:pointer;
+}
+
+.scratch-card img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
+
+.scratch-card canvas{
+position:absolute;
+top:0;left:0;
+width:100%;
+height:100%;
+border-radius:18px;
+cursor:pointer;
+}
+
+.final-message{
+max-width:750px;
+line-height:1.9;
+font-size:1.05rem;
+margin:10px auto 30px;
+padding:25px;
+background:rgba(255,255,255,0.55);
+border-radius:20px;
+backdrop-filter:blur(8px);
+-webkit-backdrop-filter:blur(8px);
+box-shadow:0 4px 30px rgba(255,143,163,0.25);
+display:none;
+opacity:0;
+transform:translateY(30px);
+transition:opacity 0.8s ease, transform 0.8s ease;
+}
+
+.final-message.visible{
+display:block;
+opacity:1;
+transform:translateY(0);
+}
+
+/* Card reveal celebration */
+.card-celebration{
+position:absolute;
+top:0;left:0;width:100%;height:100%;
+pointer-events:none;
+z-index:10;
+overflow:hidden;
+border-radius:18px;
+}
+
+.card-sparkle{
+position:absolute;
+width:8px;height:8px;
+border-radius:50%;
+animation:sparkleAnim 0.8s ease-out forwards;
+pointer-events:none;
+}
+
+@keyframes sparkleAnim{
+0%{transform:scale(0) translate(0,0);opacity:1;}
+50%{opacity:1;transform:scale(1.5) translate(var(--tx),var(--ty));}
+100%{transform:scale(0) translate(var(--tx2),var(--ty2));opacity:0;}
+}
+
+.card-glow{
+position:absolute;
+top:0;left:0;width:100%;height:100%;
+border-radius:18px;
+box-shadow:0 0 30px rgba(255,107,138,0.8), 0 0 60px rgba(255,107,138,0.4);
+animation:glowPulse 0.6s ease-out forwards;
+pointer-events:none;
+}
+
+@keyframes glowPulse{
+0%{opacity:0;transform:scale(0.95);}
+50%{opacity:1;transform:scale(1.02);}
+100%{opacity:0;transform:scale(1);}
+}
+
+.scratch-card.revealed{
+animation:cardBounce 0.5s ease;
+}
+
+@keyframes cardBounce{
+0%{transform:scale(1);}
+30%{transform:scale(1.08);}
+60%{transform:scale(0.96);}
+100%{transform:scale(1);}
+}
+
+/* Cards revealed counter */
+.reveal-counter{
+font-size:1rem;
+opacity:0.9;
+margin-bottom:20px;
+font-weight:600;
+}
+
+/* Big celebration when all revealed */
+.all-revealed-celebration{
+position:fixed;
+top:0;left:0;width:100%;height:100%;
+pointer-events:none;
+z-index:25;
+}
+
+.big-heart-burst{
+position:fixed;
+font-size:30px;
+animation:heartBurst 1.5s ease-out forwards;
+pointer-events:none;
+z-index:25;
+}
+
+@keyframes heartBurst{
+0%{transform:scale(0) translate(0,0);opacity:1;}
+30%{opacity:1;transform:scale(1.2) translate(var(--bx),var(--by));}
+100%{transform:scale(0.5) translate(var(--bx2),var(--by2));opacity:0;}
+}
+
+.final-message strong{
+font-size:1.05rem;
+}
+
+.final-message .signoff{
+margin-top:20px;
+font-style:italic;
+}
+
+@media(max-width:600px){
+.scratch-card{
+width:200px;
+height:250px;
+}
+#scratchPage h1{
+font-size:2rem;
+}
+}
+
 </style></head><body><div class="container" id="question"><div class="bear">🐻</div><h1>Will You Be My Valentine, Renu 💗?</h1><p class="subtitle">I know late ho gya par kabse iss din ka wait kr raha tha 😁💕</p><div class="buttons">
 <button id="yesBtn">Yess ❤️</button>
 <button id="noBtn">No</button>
@@ -273,8 +482,38 @@ Weeks se save karke rakha hai maine. 😌💕<br>
 <strong>I love you Renu 😘
 My cute baby 🐒❣️</strong>
 
+<br><br>
+<button class="continue-btn" id="continueBtn">Continue My Love ❣️</button>
 
-</div></div><script>
+</div></div>
+
+<!-- Page 3: Scratch Cards -->
+<div id="scratchPage">
+<h1>Scratch & Reveal 💖</h1>
+<p class="scratch-subtitle">Scratch the cards to reveal your surprise 🫣✨</p>
+<p class="reveal-counter" id="revealCounter">Cards revealed: 0 / 3 💖</p>
+<div class="scratch-container">
+<div class="scratch-card">
+<img src="images/IMG_20251124_165434.jpg" alt="Photo 1">
+<canvas></canvas>
+</div>
+<div class="scratch-card">
+<img src="images/IMG_20251127_105234.jpg" alt="Photo 2">
+<canvas></canvas>
+</div>
+<div class="scratch-card">
+<img src="images/IMG_20260305_111828.jpg" alt="Photo 3">
+<canvas></canvas>
+</div>
+</div>
+<div class="final-message">
+<strong>I know I'm not your ideal boyfriend, I make alot of mistakes and I'm not perfect but I'm trying to become someone jiske tum rely kar sako and safe feel karo mentally and emotionally ❣️. I'll try my best this time because I CAN'T LIVE WITHOUT YOU RENU 💗, I can't live without Your Gussa, Your Care for me, And Your Death Stare 🫣, I Miss You alot 💕, I Love You 💞 and I Adore You 🥰 Also I can't Live Without Your 🍑🫣.</strong>
+<div class="signoff">
+<br>P.S: This message is not generated by some AI, it's generated from my poor ❤️ jisko teri adat lag chuki hai 🥰
+<br><br>Thank You<br>Your Sexy Boyfriend<br><strong>Abhishek 😎</strong>
+</div>
+</div>
+</div><script>
 
 
 const noBtn = document.getElementById("noBtn");
@@ -452,6 +691,306 @@ document.body.appendChild(heart);
 
 
 createHearts();
+
+
+// Continue button -> Page 3
+document.getElementById("continueBtn").addEventListener("click",()=>{
+document.getElementById("celebration").style.display="none";
+document.querySelectorAll(".confetti").forEach(c=>c.remove());
+document.querySelectorAll(".rose-petal").forEach(p=>p.remove());
+const scratchPage=document.getElementById("scratchPage");
+scratchPage.style.display="flex";
+initScratchCards();
+createHearts();
+});
+
+// Scratch card logic
+let cardsRevealed=0;
+
+function initScratchCards(){
+const cards=document.querySelectorAll(".scratch-card");
+cardsRevealed=0;
+updateRevealCounter();
+
+cards.forEach(card=>{
+const canvas=card.querySelector("canvas");
+const ctx=canvas.getContext("2d");
+let revealed=false;
+
+// Set canvas size to match card
+function resizeCanvas(){
+const rect=card.getBoundingClientRect();
+canvas.width=rect.width;
+canvas.height=rect.height;
+
+// Draw scratch overlay
+const gradient=ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+gradient.addColorStop(0,'#ff6b8a');
+gradient.addColorStop(0.5,'#ff8fa3');
+gradient.addColorStop(1,'#ffc2d1');
+ctx.fillStyle=gradient;
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+// Draw heart pattern on overlay
+ctx.fillStyle='rgba(255,255,255,0.25)';
+ctx.font=`${Math.floor(canvas.width/5)}px serif`;
+ctx.textAlign='center';
+ctx.textBaseline='middle';
+ctx.fillText('❤️',canvas.width/2,canvas.height/2 - 20);
+ctx.font='16px Poppins, sans-serif';
+ctx.fillStyle='rgba(255,255,255,0.7)';
+ctx.fillText('Scratch Me!',canvas.width/2,canvas.height/2 + 30);
+}
+
+resizeCanvas();
+
+let isDrawing=false;
+let hasStartedScratching=false;
+
+function getPos(e){
+const rect=canvas.getBoundingClientRect();
+const scaleX=canvas.width/rect.width;
+const scaleY=canvas.height/rect.height;
+if(e.touches){
+return{
+x:(e.touches[0].clientX-rect.left)*scaleX,
+y:(e.touches[0].clientY-rect.top)*scaleY
+};
+}
+return{
+x:(e.clientX-rect.left)*scaleX,
+y:(e.clientY-rect.top)*scaleY
+};
+}
+
+function scratch(e){
+if(!isDrawing||revealed)return;
+e.preventDefault();
+const pos=getPos(e);
+ctx.globalCompositeOperation='destination-out';
+ctx.beginPath();
+ctx.arc(pos.x,pos.y,28,0,Math.PI*2);
+ctx.fill();
+hasStartedScratching=true;
+
+// Check scratch percentage
+checkScratchPercent();
+}
+
+function checkScratchPercent(){
+if(revealed)return;
+const imageData=ctx.getImageData(0,0,canvas.width,canvas.height);
+const pixels=imageData.data;
+let transparent=0;
+const total=pixels.length/4;
+for(let i=3;i<pixels.length;i+=4){
+if(pixels[i]===0)transparent++;
+}
+const percent=transparent/total;
+// Auto-complete scratch at 25% threshold
+if(percent>0.25){
+autoScratch(canvas,ctx,card);
+}
+}
+
+canvas.addEventListener('mousedown',(e)=>{isDrawing=true;scratch(e);});
+canvas.addEventListener('mousemove',scratch);
+canvas.addEventListener('mouseup',()=>{
+isDrawing=false;
+if(hasStartedScratching&&!revealed){
+// Check on mouse up too - in case they scratched enough
+checkScratchPercent();
+}
+});
+canvas.addEventListener('mouseleave',()=>{isDrawing=false;});
+
+canvas.addEventListener('touchstart',(e)=>{e.preventDefault();isDrawing=true;scratch(e);},{passive:false});
+canvas.addEventListener('touchmove',(e)=>{e.preventDefault();scratch(e);},{passive:false});
+canvas.addEventListener('touchend',()=>{
+isDrawing=false;
+if(hasStartedScratching&&!revealed){
+checkScratchPercent();
+}
+});
+
+// Store revealed flag on the card for auto-scratch
+card._setRevealed=function(){revealed=true;};
+});
+}
+
+function autoScratch(canvas,ctx,card){
+if(card.classList.contains('revealed'))return;
+card._setRevealed();
+
+// Animate scratch away with expanding circles
+const w=canvas.width;
+const h=canvas.height;
+ctx.globalCompositeOperation='destination-out';
+
+let step=0;
+const totalSteps=15;
+const centerX=w/2;
+const centerY=h/2;
+const maxRadius=Math.sqrt(w*w+h*h)/2;
+
+function animateStep(){
+step++;
+const progress=step/totalSteps;
+const radius=maxRadius*progress;
+
+ctx.beginPath();
+ctx.arc(centerX,centerY,radius,0,Math.PI*2);
+ctx.fill();
+
+// Also add random scratches for organic feel
+for(let i=0;i<8;i++){
+const rx=Math.random()*w;
+const ry=Math.random()*h;
+ctx.beginPath();
+ctx.arc(rx,ry,20+progress*15,0,Math.PI*2);
+ctx.fill();
+}
+
+if(step<totalSteps){
+requestAnimationFrame(animateStep);
+}else{
+// Fully revealed - fade out canvas
+canvas.style.transition='opacity 0.4s ease-out';
+canvas.style.opacity='0';
+setTimeout(()=>{
+canvas.style.display='none';
+},400);
+
+// Trigger celebration for this card
+celebrateCard(card);
+}
+}
+requestAnimationFrame(animateStep);
+}
+
+function celebrateCard(card){
+card.classList.add('revealed');
+cardsRevealed++;
+updateRevealCounter();
+
+// Add glow effect
+const glow=document.createElement('div');
+glow.classList.add('card-glow');
+card.appendChild(glow);
+setTimeout(()=>glow.remove(),700);
+
+// Add sparkle burst
+const celebration=document.createElement('div');
+celebration.classList.add('card-celebration');
+card.appendChild(celebration);
+
+const colors=['#ff6b8a','#ffd700','#ff8fa3','#fff','#ff69b4','#ffc0cb','#ff1493'];
+for(let i=0;i<25;i++){
+const sparkle=document.createElement('div');
+sparkle.classList.add('card-sparkle');
+sparkle.style.background=colors[Math.floor(Math.random()*colors.length)];
+sparkle.style.left=50+Math.random()*0+'%';
+sparkle.style.top=50+Math.random()*0+'%';
+sparkle.style.left='50%';
+sparkle.style.top='50%';
+const angle=Math.random()*Math.PI*2;
+const dist=40+Math.random()*80;
+const tx=Math.cos(angle)*dist+'px';
+const ty=Math.sin(angle)*dist+'px';
+const dist2=60+Math.random()*100;
+const tx2=Math.cos(angle)*dist2+'px';
+const ty2=Math.sin(angle)*dist2+'px';
+sparkle.style.setProperty('--tx',tx);
+sparkle.style.setProperty('--ty',ty);
+sparkle.style.setProperty('--tx2',tx2);
+sparkle.style.setProperty('--ty2',ty2);
+sparkle.style.animationDelay=(Math.random()*0.2)+'s';
+celebration.appendChild(sparkle);
+}
+setTimeout(()=>celebration.remove(),1200);
+
+// Mini confetti burst from card position
+const rect=card.getBoundingClientRect();
+const cx=rect.left+rect.width/2;
+const cy=rect.top+rect.height/2;
+for(let i=0;i<15;i++){
+const conf=document.createElement('div');
+conf.classList.add('confetti');
+conf.style.left=cx+'px';
+conf.style.top=cy+'px';
+conf.style.position='fixed';
+conf.style.background=`hsl(${Math.random()*60+320},100%,70%)`;
+conf.style.animationDuration=(Math.random()*1.5+1)+'s';
+document.body.appendChild(conf);
+setTimeout(()=>conf.remove(),3000);
+}
+
+// Check if all cards revealed
+if(cardsRevealed>=3){
+setTimeout(()=>showFinalMessage(),800);
+}
+}
+
+function updateRevealCounter(){
+const counter=document.getElementById('revealCounter');
+const emojis=['💖','💕','💗','🎉✨💖'];
+counter.textContent=`Cards revealed: ${cardsRevealed} / 3 ${emojis[Math.min(cardsRevealed,3)]}`;
+}
+
+function showFinalMessage(){
+// Big celebration
+bigCelebration();
+
+// Show the final message with animation
+const msg=document.querySelector('.final-message');
+msg.style.display='block';
+// Force reflow
+msg.offsetHeight;
+msg.classList.add('visible');
+
+// Scroll to message
+setTimeout(()=>{
+msg.scrollIntoView({behavior:'smooth',block:'center'});
+},300);
+}
+
+function bigCelebration(){
+// Heart burst from center
+const emojis=['💖','💕','💗','❤️','🥰','💞','✨','🌟','💝'];
+for(let i=0;i<30;i++){
+setTimeout(()=>{
+const heart=document.createElement('div');
+heart.classList.add('big-heart-burst');
+heart.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+heart.style.left=50+Math.random()*20-10+'vw';
+heart.style.top=50+Math.random()*20-10+'vh';
+const angle=Math.random()*Math.PI*2;
+const dist=100+Math.random()*200;
+heart.style.setProperty('--bx',Math.cos(angle)*dist+'px');
+heart.style.setProperty('--by',Math.sin(angle)*dist+'px');
+heart.style.setProperty('--bx2',Math.cos(angle)*(dist+100)+'px');
+heart.style.setProperty('--by2',Math.sin(angle)*(dist+100)+'px');
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),2000);
+},i*60);
+}
+
+// Confetti shower
+for(let i=0;i<80;i++){
+setTimeout(()=>{
+const conf=document.createElement('div');
+conf.classList.add('confetti');
+conf.style.left=Math.random()*100+'vw';
+conf.style.background=`hsl(${Math.random()*360},100%,65%)`;
+conf.style.animationDuration=(Math.random()*3+2)+'s';
+document.body.appendChild(conf);
+setTimeout(()=>conf.remove(),6000);
+},i*40);
+}
+
+// Rose petals
+createRosePetals();
+}
 
 
 </script></body>
